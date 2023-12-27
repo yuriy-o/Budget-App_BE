@@ -30,5 +30,5 @@ export class Category {
   createdAt: Date;
 
   @UpdateDateColumn()
-  updated: Date;
+  updatedAt: Date;
 }
