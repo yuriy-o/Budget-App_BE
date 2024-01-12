@@ -72,11 +72,16 @@ export class TransactionService {
   async remove(id: number) {
     const transaction = await this.transactionRepository.findOne({
       where: { id },
+      relations: {
+        user: true,
+      },
     });
+
+    console.log('transaction >>>>', transaction);
 
     if (!transaction) throw new NotFoundException('Transaction not found');
 
-    return await this.transactionRepository.delete(transaction);
+    return await this.transactionRepository.delete(id);
   }
 
   async findAllWithPagination(id: number, page: number, limit: number) {
@@ -96,5 +101,21 @@ export class TransactionService {
     });
 
     return transaction;
+  }
+
+  async findAllByType(id: number, type: string) {
+    const transactions = await this.transactionRepository.find({
+      where: {
+        user: { id },
+        type,
+      },
+    });
+
+    const total: number = transactions.reduce(
+      (acc, obj) => acc + obj.amount,
+      0,
+    );
+
+    return total;
   }
 }
