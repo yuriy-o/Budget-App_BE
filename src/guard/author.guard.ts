@@ -34,9 +34,6 @@ export class AuthorGuard implements CanActivate {
 
     const user = request.user;
 
-    console.log('entity >>>>', entity);
-    console.log('user >>>>', user);
-
     if (entity && user && entity.user.id === user.id) {
       return true;
     }

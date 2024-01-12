@@ -77,8 +77,6 @@ export class TransactionService {
       },
     });
 
-    console.log('transaction >>>>', transaction);
-
     if (!transaction) throw new NotFoundException('Transaction not found');
 
     return await this.transactionRepository.delete(id);
